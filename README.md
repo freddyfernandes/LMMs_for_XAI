@@ -1,9 +1,9 @@
-
-# README: Implementation Pipeline
+# README: Simplified Code Implementation
 
 ## Overview
 
 We have designed a simplified implementation pipeline based on our research paper: 'Towards Human-Understandable Explanations in Explainable AI Using Large Multimodal Models'. This pipeline uses a custom-trained YOLOv8 model, along with visual explainability techniques including SHAP (SHapley Additive exPlanations) and DRISE (Dynamic Randomized Input Sampling for Explanations). The pipeline processes images, generates bounding boxes, SHAP visualizations, saliency maps, and allows interaction with a large multimodal model (like Idefics2) to interpret these results in concise, human-level explanations. This document explains how the pipeline works and guides users through its execution.
+
 
 ### Key Features
 - **YOLOv8** for object detection and bounding box generation.
@@ -43,7 +43,7 @@ The pipeline loops through all images in the `input_dir` and generates bounding 
 
 ### Part 2: Large Multimodal Model Interaction
 
-The second part of the pipeline involves interaction with a large multimodal model, such as Idefics2. This model is provided with the visual outputs (bounding boxes, SHAP visualizations, saliency maps) and a contextual text prompt, which allows deeper interpretation of the model’s outputs. We can then proceed to use the model by passing some details such as the image name, class_id and the question about these images.
+The second part of the pipeline involves interaction with a large multimodal model, such as Idefics2. This model is provided with the visual outputs (bounding boxes, SHAP visualizations, saliency maps) and a contextual text prompt, which allows deeper interpretation of the model’s outputs. We can then proceed to use the model by passing some details such as the image name, class_id and the question about these images. The model then provides a detailed explanation with an answer to your question. 
 
 #### Key Functions:
 
