@@ -1,4 +1,5 @@
-# README: Simplified Code Implementation
+# Advanced Visual Explainability Pipeline
+
 
 ## Overview
 
@@ -6,15 +7,23 @@ We have designed a simplified implementation pipeline based on our research pape
 
 
 ### Key Features
-- **YOLOv8** for object detection and bounding box generation.
-- **SHAP** visualizations to explain the model’s decisions for each object detected.
-- **DRISE** to generate class-specific saliency maps for further explanation.
-- **Idefics2** as Large Multimodal Model to provide human-level explanations.
----
+- **YOLOv8**: Performs object detection, generating bounding boxes around identified objects.
+- **SHAP (SHapley Additive exPlanations)**: Provides visual explanations by highlighting image regions that contribute positively or negatively to object detection.
+- **DRISE (Dynamic Randomized Input Sampling for Explanations)**: Generates saliency maps highlighting areas most influential for the detection.
+- **Idefics2 (Large Multimodal Model)**: Offers human-level interpretations of visual explanations via natural language interaction.
+
+
+### Enhanced Features
+
+- **Bounding Box Toggle:** Easily enable or disable bounding boxes on visualizations.
+- **Custom Superpixeling:** The SHAP implementation now utilizes a customized SLIC segmentation method, significantly improving explainability precision.
+
 
 ### Prerequisites
-Install all the required packages by running the first code cell.  
----
+Install dependencies with:
+```bash
+pip install transformers==4.49.0 ultralytics numpy opencv-python shap torch torchvision torchaudio flash-attn bitsandbytes accelerate
+```
 
 ## Running the Pipeline
 
@@ -37,10 +46,10 @@ Additionally, DRISE is used to create saliency maps. These maps show the most im
 - The input directory containing the original images is specified in `input_dir`.
 - The output directory where processed images and visualizations are saved is specified in `output_dir`.
 
-The pipeline loops through all images in the `input_dir` and generates bounding boxes, SHAP explanations, and saliency maps for each object detected by YOLOv8.
+The pipeline loops through all images and Visualizations (bounding boxes, SHAP, and DRISE) are generated automatically for each image.
 
 
-
+---
 ### Part 2: Large Multimodal Model Interaction
 
 The second part of the pipeline involves interaction with a large multimodal model, such as Idefics2. This model is provided with the visual outputs (bounding boxes, SHAP visualizations, saliency maps) and a contextual text prompt, which allows deeper interpretation of the model’s outputs. We can then proceed to use the model by passing some details such as the image name, class_id and the question about these images. The model then provides a detailed explanation with an answer to your question. 
@@ -57,8 +66,12 @@ The second part of the pipeline involves interaction with a large multimodal mod
   Sends the prompt to the large multimodal model for analysis and displays the results.
 
 ---
+#### Enhanced SHAP Pipeline
+The updated SHAP pipeline now leverages:
 
+- SLIC (Simple Linear Iterative Clustering) for precise superpixel segmentation.
 
+- Visualization improvements including clearer blending and optional bounding box highlighting.
 
 ## Explanation of Results
 
@@ -68,8 +81,14 @@ The second part of the pipeline involves interaction with a large multimodal mod
 
 These visual outputs, when queried using the large multimodal model, provide insights into how the object detection model works internally and why certain decisions are made.
 
----
+### Benefits
+
+- Provides transparent insights into AI decision-making.
+
+- Enables non-experts to intuitively understand complex AI predictions.
+
+- Combines visual explainability and natural language understanding for comprehensive insights.
+
 
 ## Conclusion
-
-This pipeline offers a comprehensive way to not only detect objects in images but also to explain why and how these detections are made. By combining YOLOv8’s object detection with SHAP and DRISE visualizations and then pairing these results with the Large Multimodal model, users can gain a much deeper, human-level understanding of the decision-making process behind object detection models.
+By integrating object detection, visual explanations, and multimodal interactions, this pipeline bridges the gap between complex AI models and non-technical users, making AI decisions transparent and understandable.
